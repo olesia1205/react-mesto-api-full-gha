@@ -6,11 +6,13 @@ const { celebrate, Joi, errors } = require('celebrate');
 const routes = require('./routes');
 const { createUser, login } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { cors } = require('./middlewares/cors');
 
 const SERVER_ERROR = http2.constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
 
 const app = express();
 
+app.use(cors);
 app.use(requestLogger);
 
 app.post('/signin', express.json(), celebrate({
