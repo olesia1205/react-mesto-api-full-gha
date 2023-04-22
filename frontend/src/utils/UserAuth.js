@@ -39,7 +39,7 @@ class UserAuth {
 }
 
 const userAuth = new UserAuth({
-  BASE_URL: 'https://auth.nomoreparties.co',
+  BASE_URL: 'http://api.mesto.olerastova.nomoredomains.monster',
   headers: {
     'Content-Type': 'application/json'
   }
