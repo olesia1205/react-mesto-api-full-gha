@@ -3,16 +3,16 @@ const http2 = require('node:http2');
 const express = require('express');
 const mongoose = require('mongoose');
 const { celebrate, Joi, errors } = require('celebrate');
+const cors = require('cors');
 const routes = require('./routes');
 const { createUser, login } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-// const { cors } = require('./middlewares/cors');
 
 const SERVER_ERROR = http2.constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
 
 const app = express();
 
-// app.use(cors);
+app.use(cors());
 app.use(requestLogger);
 
 app.post('/signin', express.json(), celebrate({
@@ -43,9 +43,9 @@ app.use((err, req, res, next) => {
 
 async function connect() {
   await mongoose.connect(process.env.MONGO_URL, {});
-  // console.log(`Server connected db ${process.env.MONGO_URL}`);
+  console.log(`Server connected db ${process.env.MONGO_URL}`);
   await app.listen(process.env.PORT);
-  // console.log(`Server listen port ${process.env.PORT}`);
+  console.log(`Server listen port ${process.env.PORT}`);
 }
 
 connect();

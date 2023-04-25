@@ -96,9 +96,9 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'http://api.mesto.olerastova.nomoredomains.monster/',
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-57/',
   headers: {
-    // authorization: 'b68ddc94-1b57-472c-a3a0-fe863a783fd5',
+    authorization: 'b68ddc94-1b57-472c-a3a0-fe863a783fd5',
     'Content-Type': 'application/json'
   }
 });

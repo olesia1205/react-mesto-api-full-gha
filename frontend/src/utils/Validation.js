@@ -8,8 +8,8 @@ function useValidation () {
   function handleChange(evt) {
     const {name, value} = evt.target;
     const error = evt.target.validationMessage;
-    setValues({ ...values, [name]: value});
-    setErrors({ ...errors, [name]: error});
+    setValues({ ... values, [name]: value});
+    setErrors({ ... errors, [name]: error});
   };
 
   useEffect(() => {
