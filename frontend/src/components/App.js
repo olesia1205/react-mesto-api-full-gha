@@ -51,6 +51,7 @@ function App() {
   }
 
   useEffect(() => {
+    api.getToken();
     if(loggedIn) {
       api.getAllNeededData()
       .then(([dataForUserInfo, dataForInitialCards]) => {
@@ -74,7 +75,7 @@ function App() {
         // console.log(response);
         setLoggedIn(true);
         setUserData({
-          email: response.data.email
+          email: response.email
         });
         navigate ('/');
       })

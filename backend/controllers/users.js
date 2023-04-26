@@ -136,7 +136,7 @@ module.exports.login = async (req, res, next) => {
 
     const JWT = await generateToken({ _id: user._id });
 
-    return res.status(OK).send({ JWT });
+    return res.status(OK).send({ token: JWT });
   } catch (err) {
     next(err);
   }

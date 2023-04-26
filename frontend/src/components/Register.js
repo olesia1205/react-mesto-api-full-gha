@@ -54,7 +54,7 @@ function Register({...props}) {
             />
             <span className="signup__input-error" id="password-error"/>
             <button  className="signup__submit-button" type="submit" name="submit-button" >Зарегистрироваться</button>
-            <Link className="signup__link" to="/sign-in">Уже зарегистрированы? Войти</Link>
+            <Link className="signup__link" to="/signin">Уже зарегистрированы? Войти</Link>
           </>
         </form>
       </div>

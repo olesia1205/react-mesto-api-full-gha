@@ -15,13 +15,6 @@ const app = express();
 app.use(cors());
 app.use(requestLogger);
 
-app.post('/signin', express.json(), celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().min(8).required().alphanum(),
-  }),
-}), login);
-
 app.post('/signup', express.json(), celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
@@ -31,6 +24,14 @@ app.post('/signup', express.json(), celebrate({
     password: Joi.string().min(8).required(),
   }),
 }), createUser);
+
+app.post('/signin', express.json(), celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().required().email(),
+    password: Joi.string().min(8).required().alphanum(),
+  }),
+}), login);
+
 app.use('/', routes);
 
 app.use(errorLogger);

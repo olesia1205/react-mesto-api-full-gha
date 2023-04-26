@@ -27,9 +27,11 @@ class UserAuth {
   }
 
   getContent(token) {
+    // const token = localStorage.getItem('jwt');
     return fetch(`${this._url}/users/me`, {
       method: 'GET',
       headers: {
+        "Accept": "application/json",
         "Content-Type": "application/json",
         "Authorization" : `Bearer ${token}`
       }
@@ -39,7 +41,7 @@ class UserAuth {
 }
 
 const userAuth = new UserAuth({
-  BASE_URL: 'https://auth.nomoreparties.co',
+  BASE_URL: 'http://localhost:3000',
   headers: {
     'Content-Type': 'application/json'
   }

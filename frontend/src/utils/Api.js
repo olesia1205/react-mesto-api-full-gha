@@ -93,12 +93,15 @@ class Api {
     })
     .then(this._getResponseData);
   }
+
+  getToken() {
+    return this._headers.authorization = `Bearer ${localStorage.getItem('jwt')}`;
+  }
 }
 
 const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-57/',
+  baseUrl: 'http://localhost:3000/',
   headers: {
-    authorization: 'b68ddc94-1b57-472c-a3a0-fe863a783fd5',
     'Content-Type': 'application/json'
   }
 });
