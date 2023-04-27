@@ -41,7 +41,8 @@ class UserAuth {
 }
 
 const userAuth = new UserAuth({
-  BASE_URL: 'http://localhost:3000',
+  // BASE_URL: 'http://localhost:3000',
+  BASE_URL: 'http://api.mesto.olerastova.nomoredomains.monster',
   headers: {
     'Content-Type': 'application/json'
   }
