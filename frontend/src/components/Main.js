@@ -10,7 +10,7 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, cards, onCardClick, onIm
       {/* секция с профилем */}
       <section  className="profile" aria-label="Профиль">
         <div  className="profile__card">
-          <a className="profile__avatar-cover" onClick={onEditAvatar}>
+          <a className="profile__avatar-cover" onClick={onEditAvatar} href="#/" >
             <img  className="profile__avatar" src={currentUser.avatar} alt="Аватарка"/>
           </a>
           <div  className="profile__info">

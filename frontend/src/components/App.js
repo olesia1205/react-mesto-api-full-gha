@@ -64,10 +64,6 @@ function App() {
   }, [loggedIn]);
 
   useEffect(() => {
-    tockenCheck();
-  }, [navigate]);
-
-  function tockenCheck() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
       userAuth.getContent(jwt)
@@ -81,7 +77,7 @@ function App() {
       })
       .catch(err => console.log(err))
     }
-  }
+  }, [navigate]);
 
   function handleRegister({password, email}) {
     userAuth.register({password, email})

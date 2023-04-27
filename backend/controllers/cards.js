@@ -10,14 +10,18 @@ const CREATED = http2.constants.HTTP_STATUS_CREATED;
 module.exports.getCards = (req, res, next) => {
   Card.find({})
     .populate(['owner', 'likes'])
+    .sort({ createdAt: -1 })
     .then((cards) => res.status(OK).send(cards))
     .catch(next);
 };
 
 module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
-  Card.create({ name, link, owner: req.user._id })
-    .then((card) => res.status(CREATED).send(card))
+  Card.create({ name, link, owner: req.user })
+    .then((card) => {
+      card.populate(['owner'])
+        .then(() => res.status(CREATED).send(card));
+    })
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Произошла ошибка валидации полей'));
