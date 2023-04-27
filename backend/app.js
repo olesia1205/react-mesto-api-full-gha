@@ -8,6 +8,7 @@ const routes = require('./routes');
 const { createUser, login } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
+const MONGO_URL = 'mongodb://127.0.0.1:27017/mestodb';
 const SERVER_ERROR = http2.constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
 
 const app = express();
@@ -15,11 +16,11 @@ const app = express();
 app.use(cors());
 app.use(requestLogger);
 
-// app.get('/crash-test', () => {
-//   setTimeout(() => {
-//     throw new Error('Сервер сейчас упадёт');
-//   }, 0);
-// });
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post('/signup', express.json(), celebrate({
   body: Joi.object().keys({
@@ -49,10 +50,11 @@ app.use((err, req, res, next) => {
 });
 
 async function connect() {
-  await mongoose.connect(process.env.MONGO_URL, {});
-  console.log(`Server connected db ${process.env.MONGO_URL}`);
+  // await mongoose.connect(process.env.MONGO_URL, {});
+  await mongoose.connect(MONGO_URL, {});
+  // console.log(`Server connected db ${process.env.MONGO_URL}`);
   await app.listen(process.env.PORT);
-  console.log(`Server listen port ${process.env.PORT}`);
+  // console.log(`Server listen port ${process.env.PORT}`);
 }
 
 connect();
