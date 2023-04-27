@@ -13,7 +13,7 @@ const SERVER_ERROR = http2.constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: ['http://localhost:3001', 'http://mesto.olerastova.nomoredomains.monster'] }));
 app.use(requestLogger);
 
 app.get('/crash-test', () => {
