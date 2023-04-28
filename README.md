@@ -8,8 +8,8 @@
 
 ## Ссылки на проект
 
-IP-адрес x.x.x.x
+IP-адрес 51.250.83.45
 
-Frontend https://...
+Frontend https://mesto.olerastova.nomoredomains.monster/
 
-Backend https://...
+Backend https://http://api.mesto.olerastova.nomoredomains.monster/

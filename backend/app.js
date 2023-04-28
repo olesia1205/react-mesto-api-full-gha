@@ -7,16 +7,15 @@ const cors = require('cors');
 const routes = require('./routes');
 const { createUser, login } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-// const { cors } = require('./middlewares/cors');
 
 const MONGO_URL = 'mongodb://127.0.0.1:27017/mestodb';
 const SERVER_ERROR = http2.constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
 
 const app = express();
 
-app.use(cors({ origin: ['http://localhost:3000', 'http://localhost:3001', 'http://api.mesto.olerastova.nomoredomains.monster'] }));
-// app.use(cors());
-app.options('*', cors());
+// app.use(cors({ origin: ['http://localhost:3000', 'http://localhost:3001', 'http://api.mesto.olerastova.nomoredomains.monster'] }));
+app.use(cors());
+
 app.use(requestLogger);
 
 app.get('/crash-test', () => {
