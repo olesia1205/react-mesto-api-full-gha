@@ -14,8 +14,8 @@ const SERVER_ERROR = http2.constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
 
 const app = express();
 
-// app.use(cors({ origin: ['http://localhost:3001', 'http://api.mesto.olerastova.nomoredomains.monster/signup'] }));
-app.use(cors());
+app.use(cors({ origin: ['http://localhost:3000', 'http://localhost:3001', 'http://api.mesto.olerastova.nomoredomains.monster/signup'] }));
+// app.use(cors());
 app.options('*', cors());
 app.use(requestLogger);
 
