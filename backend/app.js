@@ -56,7 +56,7 @@ async function connect() {
   await mongoose.connect(MONGO_URL, {});
   // console.log(`Server connected db ${process.env.MONGO_URL}`);
   await app.listen(process.env.PORT);
-  console.log(`Server listen port ${process.env.PORT}`);
+  // console.log(`Server listen port ${process.env.PORT}`);
 }
 
 connect();
