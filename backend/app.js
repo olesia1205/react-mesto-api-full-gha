@@ -54,7 +54,7 @@ app.use((err, req, res, next) => {
 
 async function connect() {
   try {
-    await app.listen(process.env.PORT);
+    await app.listen(process.env.PORT || 3000);
   } catch (e) {
     console.log(`Server listen port ${process.env.PORT}`);
   }
