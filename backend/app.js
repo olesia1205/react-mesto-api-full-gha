@@ -14,7 +14,7 @@ const SERVER_ERROR = http2.constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
 const app = express();
 
 // app.use(cors({ origin: ['http://localhost:3000', 'http://localhost:3001', 'http://mesto.olerastova.nomoredomains.monster'], maxAge: 30 }));
-mongoose.connect(MONGO_URL, {});
+// mongoose.connect(MONGO_URL, {});
 app.use(cors());
 
 app.use(requestLogger);
@@ -53,16 +53,16 @@ app.use((err, req, res, next) => {
 });
 
 async function connect() {
-  try {
-    await app.listen(process.env.PORT || 3000);
-  } catch (e) {
-    console.log(`Server listen port ${process.env.PORT}`);
-  }
-  // // await mongoose.connect(process.env.MONGO_URL, {});
-  // await mongoose.connect(MONGO_URL, {});
-  // // console.log(`Server connected db ${process.env.MONGO_URL}`);
-  // await app.listen(process.env.PORT);
-  // console.log(`Server listen port ${process.env.PORT}`);
+  // try {
+  //   await app.listen(process.env.PORT || 3000);
+  // } catch (e) {
+  //   console.log(`Server listen port ${process.env.PORT}`);
+  // }
+  // await mongoose.connect(process.env.MONGO_URL, {});
+  await mongoose.connect(MONGO_URL, {});
+  // console.log(`Server connected db ${process.env.MONGO_URL}`);
+  await app.listen(process.env.PORT);
+  console.log(`Server listen port ${process.env.PORT}`);
 }
 
 connect();
