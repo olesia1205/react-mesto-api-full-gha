@@ -32,16 +32,14 @@ module.exports.createCard = (req, res, next) => {
 };
 
 module.exports.deleteCard = (req, res, next) => {
-  Card.findByIdAndDelete(req.params.cardId)
+  Card.findById(req.params.cardId)
+    .orFail(() => new NotFoundError('Карточка с указанным _id не найдена'))
     .then((card) => {
-      // console.log(card);
-      if (!card) {
-        throw new NotFoundError('Карточка с указанным _id не найдена');
-      } else if (`${card.owner}` !== req.user._id) {
+      if (`${card.owner}` !== req.user._id) {
         throw new ForbiddenError('Нет доступа на удаление чужой карточки');
-      } else {
-        res.status(OK).send(card);
       }
+      return Card.deleteOne(card)
+        .then(() => res.status(OK).send(card));
     })
     .catch((err) => {
       if (err.name === 'CastError') {

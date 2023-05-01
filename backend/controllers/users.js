@@ -9,7 +9,6 @@ const UnauthorizedError = require('../errors/UnauthorizedError');
 
 const OK = http2.constants.HTTP_STATUS_OK;
 const CREATED = http2.constants.HTTP_STATUS_CREATED;
-const UNAUTHORIZED = http2.constants.HTTP_STATUS_UNAUTHORIZED;
 
 const SOLT_ROUNDS = 10;
 const MONGO_DUPLICATE_ERROR_CODE = 11000;
@@ -75,7 +74,13 @@ module.exports.updateAvatar = (req, res, next) => {
         res.status(OK).send(user);
       }
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        next(new BadRequestError('Произошла ошибка валидации поля'));
+        return;
+      }
+      next(err);
+    });
 };
 
 module.exports.createUser = async (req, res, next) => {
@@ -89,38 +94,24 @@ module.exports.createUser = async (req, res, next) => {
       name, about, avatar, email, password: hash,
     });
     if (newUser) {
-      return res.status(CREATED).send({
-        name: newUser.name,
-        about: newUser.about,
-        avatar: newUser.avatar,
-        email: newUser.email,
-        _id: newUser._id,
-      });
-    }
-    return (newUser);
-  } catch (err) {
-    // console.log(err);
-    if (!email || !password) {
-      next(new BadRequestError('Не передан email или password'));
+      const user = newUser.toObject();
+      delete user.password;
+      res.status(CREATED).send(user);
       return;
     }
+  } catch (err) {
     if (err.name === 'ValidationError') {
       next(new BadRequestError('Не валидные почта или пароль'));
-      return;
-    }
-    if (err.code === MONGO_DUPLICATE_ERROR_CODE) {
+    } else if (err.code === MONGO_DUPLICATE_ERROR_CODE) {
       next(new ConflictError('Такой пользователь уже существует'));
+    } else {
+      next(err);
     }
-    next(err);
   }
 };
 
 module.exports.login = async (req, res, next) => {
   const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res.status(UNAUTHORIZED).send({ message: 'Неправильные почта или пароль' });
-  }
 
   try {
     const user = await User.findOne({ email }).select('+password');
@@ -131,12 +122,14 @@ module.exports.login = async (req, res, next) => {
 
     const matched = await bcrypt.compare(password, user.password);
     if (!matched) {
-      return res.status(UNAUTHORIZED).send({ message: 'Неправильные почта или пароль' });
+      next(new BadRequestError('Неправильные почта или пароль'));
+      return;
     }
 
     const JWT = await generateToken({ _id: user._id });
 
-    return res.status(OK).send({ token: JWT });
+    res.status(OK).send({ token: JWT });
+    return;
   } catch (err) {
     next(err);
   }

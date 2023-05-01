@@ -8,14 +8,16 @@ const {
 
 const validateUpdateUser = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30).messages({
-      'string.min': 'Минимальная длина поля "name" - 2',
-      'string.max': 'Максимальная длина поля "name" - 30',
-    }),
-    about: Joi.string().min(2).max(30).messages({
-      'string.min': 'Минимальная длина поля "about" - 2',
-      'string.max': 'Максимальная длина поля "about" - 30',
-    }),
+    name: Joi.string().required().min(2).max(30)
+      .messages({
+        'string.min': 'Минимальная длина поля "name" - 2',
+        'string.max': 'Максимальная длина поля "name" - 30',
+      }),
+    about: Joi.string().required().min(2).max(30)
+      .messages({
+        'string.min': 'Минимальная длина поля "about" - 2',
+        'string.max': 'Максимальная длина поля "about" - 30',
+      }),
   }),
 });
 
@@ -31,7 +33,7 @@ const validateUpdateAvatar = celebrate({
 
 router.get('/', getUsers);
 router.get('/me', getMe);
-router.get('/:userId', celebrate({ params: Joi.object().keys({ userId: Joi.string().alphanum().length(24) }) }), getUserById);
+router.get('/:userId', celebrate({ params: Joi.object().required().keys({ userId: Joi.string().hex().length(24) }) }), getUserById);
 router.patch('/me', express.json(), validateUpdateUser, updateUser);
 router.patch('/me/avatar', express.json(), validateUpdateAvatar, updateAvatar);
 

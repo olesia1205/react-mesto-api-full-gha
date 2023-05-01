@@ -2,10 +2,9 @@ require('dotenv').config();
 const http2 = require('node:http2');
 const express = require('express');
 const mongoose = require('mongoose');
-const { celebrate, Joi, errors } = require('celebrate');
+const { errors } = require('celebrate');
 const cors = require('cors');
 const routes = require('./routes');
-const { createUser, login } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const MONGO_URL = 'mongodb://127.0.0.1:27017/mestodb';
@@ -23,23 +22,6 @@ app.get('/crash-test', () => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
-
-app.post('/signup', express.json(), celebrate({
-  body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
-    avatar: Joi.string().uri({ scheme: ['http', 'https'] }),
-    email: Joi.string().required().email(),
-    password: Joi.string().min(8).required(),
-  }),
-}), createUser);
-
-app.post('/signin', express.json(), celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().min(8).required().alphanum(),
-  }),
-}), login);
 
 app.use('/', routes);
 
