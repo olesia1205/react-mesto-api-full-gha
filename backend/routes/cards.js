@@ -1,30 +1,11 @@
 const express = require('express');
-const { celebrate, Joi } = require('celebrate');
 
 const router = express.Router();
 const {
   getCards, deleteCard, createCard, putLike, deleteLike,
 } = require('../controllers/cards');
 
-const urlRegExp = /^https?:\/\/(www.)?[a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=]*#?$/;
-
-const validateCreateCard = celebrate({
-  body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30)
-      .messages({
-        'string.min': 'Минимальная длина поля "name" - 2',
-        'string.max': 'Максимальная длина поля "name" - 30',
-        'string.empty': 'Поле "name" должно быть заполнено',
-      }),
-    link: Joi.string().required().pattern(urlRegExp)
-      .message('Поле "link" должно быть валидным url-адресом')
-      .messages({ 'string.empty': 'Поле "link" должно быть заполнено' }),
-  }),
-});
-
-const validateCardId = celebrate({
-  params: Joi.object().required().keys({ cardId: Joi.string().hex().length(24) }),
-});
+const { validateCreateCard, validateCardId } = require('../utils/requestValidation');
 
 router.get('/', getCards);
 router.delete('/:cardId', validateCardId, deleteCard);

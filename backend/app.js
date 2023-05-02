@@ -1,14 +1,13 @@
 require('dotenv').config();
-const http2 = require('node:http2');
 const express = require('express');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const cors = require('cors');
 const routes = require('./routes');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const centralErrorHandler = require('./errors/CentralErrorHandler');
 
 const MONGO_URL = 'mongodb://127.0.0.1:27017/mestodb';
-const SERVER_ERROR = http2.constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
 
 const app = express();
 
@@ -27,11 +26,7 @@ app.use('/', routes);
 
 app.use(errorLogger);
 app.use(errors());
-app.use((err, req, res, next) => {
-  const { statusCode = SERVER_ERROR, message } = err;
-  res.status(statusCode).send({ message: statusCode === SERVER_ERROR ? 'Произошла ошибка на сервере' : message });
-  next();
-});
+app.use(centralErrorHandler);
 
 async function connect() {
   try {
