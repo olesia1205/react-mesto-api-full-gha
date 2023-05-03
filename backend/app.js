@@ -31,7 +31,7 @@ app.use(centralErrorHandler);
 async function connect() {
   try {
     await app.listen(process.env.PORT || 3000);
-    // console.log(`Server listen port ${process.env.PORT}`);
+    console.log(`Server listen port ${process.env.PORT}`);
   } catch (e) {
     console.log(e);
   }

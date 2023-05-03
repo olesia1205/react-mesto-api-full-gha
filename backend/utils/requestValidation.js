@@ -40,9 +40,9 @@ module.exports.validateCreateCard = celebrate({
 });
 
 module.exports.validateCardId = celebrate({
-  params: Joi.object().required().keys({ cardId: Joi.string().hex().length(24) }),
+  params: Joi.object().keys({ cardId: Joi.string().required().hex().length(24) }),
 });
 
 module.exports.validateUserId = celebrate({
-  params: Joi.object().required().keys({ userId: Joi.string().hex().length(24) }),
+  params: Joi.object().keys({ userId: Joi.string().required().hex().length(24) }),
 });

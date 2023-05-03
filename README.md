@@ -8,7 +8,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 51.250.83.45
+IP 51.250.83.45
 
 Frontend https://mesto.olerastova.nomoredomains.monster
 
