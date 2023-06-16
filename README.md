@@ -1,14 +1,14 @@
-[![Tests](https://github.com/yandex-praktikum/react-mesto-api-full-gha/actions/workflows/tests.yml/badge.svg)](https://github.com/yandex-praktikum/react-mesto-api-full-gha/actions/workflows/tests.yml)
+[![LOGO](frontend/src/images/header-logo-black.svg)](https://mesto.olerastova.nomoredomains.monster)
+
 # react-mesto-api-full
-Репозиторий для приложения проекта `Mesto`, включающий фронтенд и бэкенд части приложения со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями.  
-  
-Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке.
+Репозиторий для приложения проекта `Mesto`, включающий фронтенд и бэкенд части приложения со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями.
 
-Адрес репозитория: https://github.com/olesia1205/react-mesto-api-full-gha
+> Бэкенд - в директории `backend/`
+> Фронтенд - в директории `frontend/`
 
-## Ссылки на проект
+***
 
-IP-адрес 51.250.83.45
+## Ссылки на проект, размещенный на Яндекс.Облаке:
 
 Frontend https://mesto.olerastova.nomoredomains.monster
 
