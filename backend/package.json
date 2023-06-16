@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/olesia1205/express-mesto-gha/issues"
   },
-  "homepage": "http://api.mesto.olerastova.nomoredomains.monster",
+  "homepage": "https://api.mesto.olerastova.nomoredomains.monster",
   "devDependencies": {
     "eslint": "^8.36.0",
     "eslint-config-airbnb-base": "^15.0.0",
