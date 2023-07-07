@@ -13,6 +13,7 @@ function PopupWithForm({ name, title, children, isOpen, onClose, buttonText, onS
               type="submit"
               name="submit-button"
               value={buttonText}
+              disabled={isDisabled}
             >
               {buttonText}
             </button>
